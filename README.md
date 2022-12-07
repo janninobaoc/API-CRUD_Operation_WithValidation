@@ -1,5 +1,5 @@
 Group Members:
-Jan Nino Baocc,
+Jan Nino Baoc,
 Shobi Umaran,
 J-Marie Cartalla,
 Jovie Bendijo
