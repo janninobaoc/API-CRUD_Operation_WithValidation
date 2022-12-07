@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get,Req, Res, Param, Patch, Post, UsePipes } from '@nestjs/common';
+import { Body, Controller, Delete, Get,Req, Res, Param, Patch, Post, } from '@nestjs/common';
 import { Note } from './note.model';
 import { CreateNoteDto } from 'src/dtos/create-note.dto';
 import { NoteService } from './note.service';
@@ -39,7 +39,8 @@ export class NoteController {
     }
 
     @Patch(':id')
-    updateNote(@Param('id')id: string, @Body('note_title') note_title: string, @Body('description') description: string): Note{
+    
+    updateNote(@Param('id')id: string, @Body('note_title') note_title: string, @Body('description') description: string,@Body() body: CreateNoteDto): Note{
         return this.noteService.updateNote(id, note_title, description)
     }
 }
