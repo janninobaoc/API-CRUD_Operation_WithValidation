@@ -1,8 +1,12 @@
-import { Body, Controller, Delete, Get,Req, Res, Param, Patch, Post, } from '@nestjs/common';
-import { Note } from './note.model';
+import { Body, Controller, Delete, Get, Param, Patch, Post, } from '@nestjs/common';
+import { Note, NoteStatus, } from './note.model';
 import { CreateNoteDto } from 'src/dtos/create-note.dto';
 import { NoteService } from './note.service';
-import { Request,Response } from 'express';
+import { getNotesFilterDto } from 'src/dtos/get.notes.filter.dto';
+import { Query } from '@nestjs/common/decorators/http/route-params.decorator';
+import { UsePipes } from '@nestjs/common/decorators/core/use-pipes.decorator';
+import { ValidationPipe } from '@nestjs/common';
+import { NoteStatusValidationPipe } from 'src/pipes/note.status.validation.pipe';
 @Controller('notes')
 export class NoteController {
 
@@ -10,25 +14,17 @@ export class NoteController {
 
   
     @Get(':id')
-    getNote(@Param('id')id: string,
-    @Req() req:Request,
-    @Res() res:Response,
-    )
+    getNote(@Param('id')id: string,)
     {
-        const note = this.noteService.findNoteById(id);
-        if(note){
-            res.send(note)
-        }else{
-            res.status(400).send({ message:'Notes not found!' });
-            return note;
-        }
+        return this.noteService.getNote(id);
     }  
     @Get()
-    getNotes(): Note[]{
-        return this.noteService.getNotes();
+    getNotes(@Query(ValidationPipe) filterDto: getNotesFilterDto){
+        return this.noteService.getNotes(filterDto);
     }
 
     @Post('create')
+    @UsePipes(ValidationPipe)
     createNote(@Body() body: CreateNoteDto): Note{
         return this.noteService.createNote(body)
     }
@@ -39,8 +35,9 @@ export class NoteController {
     }
 
     @Patch(':id')
-    
-    updateNote(@Param('id')id: string, @Body('note_title') note_title: string, @Body('description') description: string,@Body() body: CreateNoteDto): Note{
-        return this.noteService.updateNote(id, note_title, description)
+    updateNote(@Param('id')id: string,@Body('status', NoteStatusValidationPipe) status: NoteStatus): Note{
+        return this.noteService.updateNote(id,status)
+        // @Body('note_title') note_title: string,
+        // @Body('description') description: string,
     }
 }
