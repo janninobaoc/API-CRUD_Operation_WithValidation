@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, } from '@nestjs/common';
 import { Note, NoteStatus, } from './note.model';
 import { CreateNoteDto } from 'src/dtos/create-note.dto';
 import { NoteService } from './note.service';
@@ -13,29 +13,33 @@ export class NoteController {
     constructor(private noteService: NoteService){}
 
   
+    @Get()
+    getNotes(){
+        return this.noteService.getAllNotes();
+    }
     @Get(':id')
-    getNote(@Param('id')id: string,)
+    getNote(@Param('id',ParseIntPipe)id: number)
     {
         return this.noteService.getNote(id);
     }  
-    @Get()
-    getNotes(@Query(ValidationPipe) filterDto: getNotesFilterDto){
-        return this.noteService.getNotes(filterDto);
-    }
+    // @Get()
+    // getNotes(@Query(ValidationPipe) filterDto: getNotesFilterDto){
+    //     return this.noteService.getNotes(filterDto);
+    // }
 
     @Post('create')
     @UsePipes(ValidationPipe)
-    createNote(@Body() body: CreateNoteDto): Note{
+    createNote(@Body() body: CreateNoteDto){
         return this.noteService.createNote(body)
     }
 
     @Delete(':id')
-    deleteNote(@Param('id')id: string): void{
+    deleteNote(@Param('id',ParseIntPipe)id: number): void{
         this.noteService.deleteNote(id);
     }
 
     @Patch(':id')
-    updateNote(@Param('id')id: string,@Body('status', NoteStatusValidationPipe) status: NoteStatus): Note{
+    updateNote(@Param('id',ParseIntPipe)id: number,@Body('status', NoteStatusValidationPipe) status: NoteStatus){
         return this.noteService.updateNote(id,status)
         // @Body('note_title') note_title: string,
         // @Body('description') description: string,

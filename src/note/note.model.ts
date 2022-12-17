@@ -1,8 +1,8 @@
 import { title } from "process"
 export interface Note{
-    id: string,
+    id: number,
     note_title: string,
-    description: string
+    description: string,
     status: NoteStatus
 }
 export enum NoteStatus{
