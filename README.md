@@ -1,25 +1,25 @@
 Group Members:
 
-Jan Nino Baoc,
+    Jan Nino Baoc,
 
-Shobi Umaran,
+    Shobi Umaran,
 
-J-Marie Cartalla,
+    J-Marie Cartalla,
 
-Jovie Bendijo
+    Jovie Bendijo
 
 
 
 
 Activity Implementations:
 
-1st: Creating the Note Taking API with CRUD .
+    1st: Creating the Note Taking API with CRUD .
 
-2nd: Make some validations .
+    2nd: Make some validations .
 
-3rd: Create validations and pipes, with search and status query in finding a specific data
+    3rd: Create validations and pipes, with search and status query in finding a specific data
 
-4rth: With TypeORM and connect to database
+    4rth: With TypeORM and connect to database
 
 
 
