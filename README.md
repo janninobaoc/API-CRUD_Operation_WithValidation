@@ -1,8 +1,43 @@
 Group Members:
+
 Jan Nino Baoc,
+
 Shobi Umaran,
+
 J-Marie Cartalla,
+
 Jovie Bendijo
+
+
+
+
+Activity Implementations:
+
+1st: Creating the Note Taking API with CRUD .
+
+2nd: Make some validations .
+
+3rd: Create validations and pipes, with search and status query in finding a specific data
+
+4rth: With TypeORM and connect to database
+
+
+
+
+Connection:
+
+    type: 'mysql',
+    host: 'localhost',
+    port: 3306,
+    username:'root',
+    password:'',
+    database:'note_taking',
+    entities:[__dirname + '/../**/*.entity.{js,ts}'],
+    synchronize: true
+
+
+
+
 
 
 
